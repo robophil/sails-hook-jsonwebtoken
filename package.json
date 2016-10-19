@@ -1,0 +1,35 @@
+{
+  "name": "sails-hook-jsonwebtoken",
+  "version": "0.0.0",
+  "description": "A sails hook for easily using jsonwebtoken",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Robophil/sails-hook-jsonwebtoken.git"
+  },
+  "keywords": [
+    "sails",
+    "sails-hook",
+    "jwt",
+    "jsonwebtoken"
+  ],
+  "author": "Philip Oghenerobo Balogun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Robophil/sails-hook-jsonwebtoken/issues"
+  },
+  "homepage": "https://github.com/Robophil/sails-hook-jsonwebtoken#readme",
+  "sails": {
+    "isHook": true,
+    "hookName": "jsonwebtoken"
+  },
+  "devDependencies": {
+    "sails": "~0.11.0"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^7.1.9"
+  }
+}
