@@ -23,13 +23,20 @@
   },
   "homepage": "https://github.com/Robophil/sails-hook-jsonwebtoken#readme",
   "sails": {
-    "isHook": true,
-    "hookName": "jsonwebtoken"
+    "isHook": true
   },
   "devDependencies": {
-    "sails": "~0.11.0"
+    "mocha": "^3.1.2",
+    "sails": "~0.11.0",
+    "sails-disk": "^0.10.10"
   },
   "dependencies": {
-    "jsonwebtoken": "^7.1.9"
+    "async": "^2.1.2",
+    "bcrypt": "^0.8.7",
+    "jsonwebtoken": "^7.1.9",
+    "lodash": "^4.16.4",
+    "nodemailer": "^2.6.4",
+    "sails-build-dictionary": "^0.10.1",
+    "sails-util": "^0.11.0"
   }
 }
