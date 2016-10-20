@@ -1,5 +1,4 @@
 module.exports.routes = {
-	'post /login': 'AuthController.login',
-	'post /signup': 'AuthController.signup',
-	'get /activate/:token': 'AuthController.activate'
+	'POST /jwt/auth': 'JwtController.login',
+	'POST /jwt/signup': 'JwtController.signup'
 };

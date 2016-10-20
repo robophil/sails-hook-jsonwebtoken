@@ -1,3 +1,25 @@
+var _jsonWebToken = require('./lib/app.js');
+
 module.exports = function jsonWebToken(sails) {
-   return {};
+    _jsonWebToken.adaptSails(sails);
+    return {
+        defaults: {//#first. Set defaults to be used by your hook
+            jsonWebToken: {
+                token_secret: 'bless me father for i have sinned.....',
+                options:{},
+                email_activation: false,
+                default_account_status: true,
+                mailOptions: {}
+            }
+        },
+        configure: function () {//#second. Called after defaults have been set.
+            // sails.config[this.configKey].authMode = "default";
+        },
+        initialize: function (cb) {
+            // Do some stuff here to initialize hook
+            _jsonWebToken.init(sails);
+            // And then call `cb` to continue
+            return cb();
+        }
+    };
 }
