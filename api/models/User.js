@@ -27,6 +27,13 @@ module.exports = {
 
     isPasswordValid: function (password, cb) {
       bcrypt.compare(password, this.password, cb);
+    },
+
+    // Override toJSON method to remove password from API
+    toJSON: function () {
+      var obj = this.toObject();
+      delete obj.password;
+      return obj;
     }
   },
 
