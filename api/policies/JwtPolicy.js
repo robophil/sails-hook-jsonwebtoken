@@ -26,6 +26,7 @@ module.exports = function (req, res, next) {
     JwtService.verifyToken(token).then((decoded) => {
         //add user id to the request object
         req.user_id = decoded.user_id;
+        next();
     }).catch((err) => {
         return res.json(401, {
             err: {

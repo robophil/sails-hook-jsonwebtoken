@@ -81,7 +81,7 @@ When acessing a route secured by policy, simple add token in Authorization heade
 `QWxhZGRpbjpPcGVuU2VzYW1l`
 
 ```html
-Authorization: Basic QWxhZGRpbjpPcGVuU2VzYW1l
+Authorization: Bearer QWxhZGRpbjpPcGVuU2VzYW1l
 ```
 
 or as parameter `token` in the request as shown below
