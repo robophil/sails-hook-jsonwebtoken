@@ -7,12 +7,13 @@ A sails hook for easily using jsonwebtoken. It wraps around the popular [jsonweb
 ```bash
 npm install sails-hook-jsonwebtoken --save
 ```
+
 1. [Routes](#routes-sign-up--sign-in)
-  1. [Signup](#signup)
-  2. [Signin](#signin)
-2. [Secure a route](#policy)
-3. [Accessing a secured route](#accessing-a-secure-route)
-4. [Configure sails-hook-jsonwebtoken](#configuration)
+    1. [Signup](#signup)
+    1. [Signin](#signin)
+1. [Secure a route](#policy)
+1. [Accessing a secured route](#accessing-a-secure-route)
+1. [Configure sails-hook-jsonwebtoken](#configuration)
 
 
 ## routes (sign up / sign in)
