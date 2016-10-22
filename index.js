@@ -6,7 +6,7 @@ module.exports = function jsonWebToken(sails) {
         defaults: {//#first. Set defaults to be used by your hook
             jsonWebToken: {
                 token_secret: 'bless me father for i have sinned.....',
-                options:{},
+                options:{expiresIn: '2h'},
                 email_activation: false,
                 default_account_status: true,
                 mailOptions: {}
