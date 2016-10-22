@@ -67,6 +67,21 @@ module.exports.policies = {
 }
 ```
 
+## accessing a secure route
+
+When acessing a route secured by policy, simple add token in Authorization header. See sample below where *token* is
+`QWxhZGRpbjpPcGVuU2VzYW1l`
+
+```html
+Authorization: Basic QWxhZGRpbjpPcGVuU2VzYW1l
+```
+
+or as parameter `token` in the request as shown below
+
+```html
+http://example.com?token=QWxhZGRpbjpPcGVuU2VzYW1l
+```
+
 ## configuration
 
 create config file `config/jsonWebToken.js`
