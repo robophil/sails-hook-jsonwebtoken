@@ -61,16 +61,15 @@ returns object if successful
 
 ## policy
 
-go to `config/policy.js` and apply the policy `JwtPolicy` to routes that needs authentication.
+go to `config/policies.js` and apply the policy `JwtPolicy` to routes that needs authentication.
 Visit sails doc [here](http://sailsjs.org/documentation/concepts/policies#?to-apply-a-policy-to-a-specific-controller-action) to learn more
 
 ```javascript
 //example of how your file might look like
 module.exports.policies = {
-    '*': true,
-    'RabbitController': {
-        nurture : 'JwtPolicy',
-        feed : ['isNiceToAnimals', 'JwtPolicy']
+    '*': JwtPolicy, //Secure all routes with jwtPolicy
+    'JwtController': {
+        '*': true//Make this open to allow for signup and authentication
     }
 }
 ```
@@ -96,33 +95,13 @@ create config file `config/jsonWebToken.js`
 
 ```javascript
 module.exports.jsonWebToken = {
-    token_secret: 'bless me father for i have sinned.....',//token secret
-    options:{}, // options to config node-jsonwebtoken
-    default_account_status: true,//default account status
-    email_activation: false, //if email activation is needed for every account created
-    nodemailer:{// see https://github.com/nodemailer/nodemailer for options
-        smtpTransport: "smtps://user%40gmail.com:pass@smtp.gmail.com",
-        mailOptions: {//https://github.com/nodemailer/nodemailer#e-mail-message-fields
-            from: '"Fred Foo" <foo@blurdybloop.com>', // sender address
-            to: '', //this would be set at runtime for the current user trying to signup
-            subject: 'Hello ✔', // Subject line
-            text: 'Hello world', // plaintext body
-            html: '<b>Hello world</b>' // html body
-        },
-        options: {},//https://github.com/nodemailer/nodemailer#set-up-smtp
-        defaults: {}
-    }
+    token_secret: 'bless me father for i have sinned.....',
+    options:{expiresIn: '2h'},
+    default_account_status: true
 }
 ```
 
 * see here for [options](https://github.com/auth0/node-jsonwebtoken#usage) settings
-* see here for [nodemailer](https://github.com/nodemailer/nodemailer) options settings
-* see here for [nodemailer.mailOptions](https://github.com/nodemailer/nodemailer#e-mail-message-fields) options settings
-* see here for [nodemailer.options](https://github.com/nodemailer/nodemailer#set-up-smtp) options settings
-
-## Note
-
-`options.email_activation` and `options.nodemailer` have not been implemented yet.
 
 ## liscence
 
