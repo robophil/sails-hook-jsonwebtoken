@@ -5,6 +5,7 @@ node_js:
   - "6.9.1"
   - "5.11"
 before_script:
+  - sudo apt-get install build-essential
   - npm install -g node-gyp
   - npm install sails -g
   - npm install
