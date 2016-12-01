@@ -3,11 +3,18 @@ var jwt = require('jsonwebtoken');
 /**
  * Returns a promise when a payload is passed. if successful, promise contains a new token
  */
-module.exports.issueToken = function (payload) {
+module.exports.issueToken = function (payload, user) {
   return new Promise((resolve, reject) => {
-    jwt.sign(payload, sails.config.jsonWebToken.token_secret, sails.config.jsonWebToken.options, function (err, token) {
-      if (err) reject(err);
-      resolve(token);
+    jwt.verify(user.token, sails.config.jsonWebToken.token_secret, sails.config.jsonWebToken.options, function (err, decoded) {
+      if (err) {//if the stored token is invalid, or expired
+        //request for a new one
+        jwt.sign(payload, sails.config.jsonWebToken.token_secret, sails.config.jsonWebToken.options, function (err, token) {
+          if (err) reject(err);
+          User.update({id: user.id},{token: token}).then(data => resolve(token)).catch(error => reject(error))
+        });
+      } else {//if its still valid and not expired
+        resolve(user.token);
+      }
     });
   });
 };

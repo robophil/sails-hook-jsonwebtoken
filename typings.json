@@ -1,0 +1,5 @@
+{
+  "globalDevDependencies": {
+    "supertest": "registry:dt/supertest#1.1.0+20161009200303"
+  }
+}

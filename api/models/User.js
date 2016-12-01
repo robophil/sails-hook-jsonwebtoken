@@ -26,6 +26,11 @@ module.exports = {
       defaultsTo: true
     },
 
+    token:{
+      type: 'string',
+      defaultsTo: 'token'
+    },
+
     isPasswordValid: function (password, cb) {
       bcrypt.compare(password, this.password, cb);
     },

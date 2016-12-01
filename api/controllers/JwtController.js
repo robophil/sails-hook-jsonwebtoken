@@ -27,7 +27,7 @@ module.exports = {
             user.isPasswordValid(req.body.password, function (err, match) {
                 if (err) return res.serverError(err);
                 if (match) {//issue a token to the user
-                    JwtService.issueToken({ user_id: user.id }).then((token) => {
+                    JwtService.issueToken({ user_id: user.id }, user).then((token) => {
                         return res.json({ user: user, token: token });
                     }).catch((err) => {
                         return res.serverError(err);
@@ -76,7 +76,7 @@ module.exports = {
         };
 
         User.create(newUser).then((user) => {
-            JwtService.issueToken({ user_id: user.id }).then((token) => {
+            JwtService.issueToken({ user_id: user.id }, user).then((token) => {
                 return res.json({ user: user, token: token });
             }).catch((err) => {
                 return res.serverError(err);
