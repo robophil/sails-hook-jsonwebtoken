@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "async": "^2.1.2",
-    "bcrypt": "^0.8.7",
+    "bcryptjs": "^2.4.0",
     "jsonwebtoken": "^7.1.9",
     "lodash": "^4.16.4",
     "nodemailer": "^2.6.4",
