@@ -4,7 +4,7 @@ module.exports = {
     login: function (req, res) {
         // Validate request paramaters
         if (!req.body.email || !req.body.password) {
-            return res.json(400, {
+            return res.json(401, {
                 err: {
                     status: 'danger',
                     message: 'Email or password not found'
