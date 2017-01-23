@@ -67,7 +67,7 @@ Visit sails doc [here](http://sailsjs.org/documentation/concepts/policies#?to-ap
 ```javascript
 //example of how your file might look like
 module.exports.policies = {
-    '*': JwtPolicy, //Secure all routes with jwtPolicy
+    '*': 'JwtPolicy', //Secure all routes with jwtPolicy
     'JwtController': {
         '*': true//Make this open to allow for signup and authentication
     }
