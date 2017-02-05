@@ -30,3 +30,28 @@ module.exports.verifyToken = function (token) {
     });
   });
 };
+
+module.exports.createUser = function (req){
+  return new Promise ((resolve, reject) => {
+        // Validate request paramaters
+        if (!req.body.email || !req.body.password) {
+            reject('email or password parameter(s) missing')
+        }
+
+        //new user object
+        var newUser = {
+            email: req.body.email,
+            password: req.body.password,
+            active: sails.config.jsonWebToken.default_account_status,
+            accountType: {
+              type : req.body.type || 'user'
+            }
+        };
+
+        User.create(newUser).then((user) => {
+            resolve(user)
+        }).catch((err) => {
+            reject(err)
+        });
+  });
+}

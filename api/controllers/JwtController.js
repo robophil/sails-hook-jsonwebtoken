@@ -1,7 +1,7 @@
 var bcrypt = require('bcryptjs');
 
 module.exports = {
-    login: function (req, res) {
+    auth: function (req, res) {
         // Validate request paramaters
         if (!req.body.email || !req.body.password) {
             return res.json(401, {
@@ -48,41 +48,26 @@ module.exports = {
     },
 
     signup: function (req, res) {
-        // Validate request paramaters
-        if (!req.body.email || !req.body.password || !req.body.confirmPassword) {
-            return res.json(400, {
-                err: {
-                    status: 'danger',
-                    message: 'email, password or confirmPassword parameter(s) missing'
-                }
-            });
-        }
-
-        //TODO: Do some validation on the input
-        if (req.body.password !== req.body.confirmPassword) {
-            return res.json(400, {
-                err: {
-                    status: 'danger',
-                    message: 'passwords do not match'
-                }
-            });
-        }
-
-        //new user object
-        var newUser = {
-            email: req.body.email,
-            password: req.body.password,
-            active: sails.config.jsonWebToken.default_account_status
-        };
-
-        User.create(newUser).then((user) => {
+        JwtService.createUser(req).then( user => {
             JwtService.issueToken({ user_id: user.id }, user).then((token) => {
                 return res.json({ user: user, token: token });
             }).catch((err) => {
-                return res.serverError(err);
+                return res.json(401, {
+                        err: {
+                            status: 'danger',
+                            message: 'Unable to create token for new account !!, account created'
+                        },
+                        message: err
+                    });
             });
-        }).catch((err) => {
-            return res.serverError(err);
-        });
+        }).catch( err => {
+            return res.json(400, {
+                        err: {
+                            status: 'danger',
+                            message: 'Unable to create account'
+                        },
+                        message: err
+                    });
+        })
     }
 };

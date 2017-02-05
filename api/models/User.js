@@ -18,7 +18,12 @@ module.exports = {
     password: {
       type: 'string',
       required: true,
-      minLength: 6
+      minLength: 4
+    },
+
+    accountType: {
+      collection: 'accounttype',
+      via: 'owner'
     },
 
     active: {
