@@ -22,8 +22,8 @@ module.exports = {
     },
 
     accountType: {
-      collection: 'accounttype',
-      via: 'owner'
+      type: 'string',
+      defaultsTo: 'user'
     },
 
     active: {
