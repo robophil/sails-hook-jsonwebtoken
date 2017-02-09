@@ -1,6 +1,6 @@
 {
   "name": "sails-hook-jsonwebtoken",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A sails hook for easily using jsonwebtoken",
   "main": "index.js",
   "scripts": {
