@@ -45,6 +45,10 @@ module.exports.createUser = function (req){
             active: sails.config.jsonWebToken.default_account_status
         };
 
+        if(req.body.accountType){
+          newUser['accountType'] = req.body.accountType
+        }
+
         User.create(newUser).then((user) => {
             resolve(user)
         }).catch((err) => {
