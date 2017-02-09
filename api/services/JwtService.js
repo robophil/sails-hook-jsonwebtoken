@@ -42,10 +42,7 @@ module.exports.createUser = function (req){
         var newUser = {
             email: req.body.email,
             password: req.body.password,
-            active: sails.config.jsonWebToken.default_account_status,
-            accountType: {
-              type : req.body.type || 'user'
-            }
+            active: sails.config.jsonWebToken.default_account_status
         };
 
         User.create(newUser).then((user) => {
