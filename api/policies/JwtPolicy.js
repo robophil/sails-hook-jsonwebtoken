@@ -25,8 +25,20 @@ module.exports = function (req, res, next) {
 
     JwtService.verifyToken(token).then((decoded) => {
         //add user id to the request object
-        req.user_id = decoded.user_id;
-        next();
+        var id = decoded.user_id;
+        User.findOne({ id: id }).then(user => {
+            if (user) {
+                next();
+            } else {
+                return res.json(400, { err: { status: "danger", message: "This account no longer exist or has been deleted" } });
+            }
+        }).catch(error => {
+            return res.json(401, {
+                err: {
+                    status: 'danger', message: 'could not validate this account', error: error
+                }
+            });
+        })
     }).catch((err) => {
         return res.json(401, {
             err: {
