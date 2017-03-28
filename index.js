@@ -9,7 +9,14 @@ module.exports = function jsonWebToken(sails) {
                 options:{expiresIn: '2h'},
                 email_activation: false,
                 default_account_status: true,
-                mailOptions: {}
+                mailOptions: {},
+                afterSignup: function (user) {
+                    console.log("User account created")
+                },
+                afterSignin: function (user) {
+                    console.log("successful login")
+                },
+                authType: "email" //could be {email or username}
             }
         },
         configure: function () {//#second. Called after defaults have been set.
