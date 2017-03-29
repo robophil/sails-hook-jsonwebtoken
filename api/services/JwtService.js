@@ -59,11 +59,9 @@ module.exports.createUser = function (body) {
     }
 
 
-    //new user object
-    var newUser = {
-      password: body.password,
-      active: sails.config.jsonWebToken.default_account_status
-    };
+    //user object
+    newUser["password"] = body.password
+    newUser["active"] = sails.config.jsonWebToken.default_account_status
 
     if (body.accountType) {
       newUser["accountType"] = body.accountType
