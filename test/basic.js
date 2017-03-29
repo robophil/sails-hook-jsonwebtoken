@@ -3,13 +3,13 @@ var Sails = require('sails').Sails;
 var request = require('supertest');
 
 var formData = {
-    email: 'test@test.com', password: '1234567', confirmPassword: '1234567'
+    email: 'test@test.com', password: '1234567'
 };
 
 describe('Sails-hook-jsonwebtoken test ::', function () {
 
     // Var to hold a running sails app instance
-    var sails, token1, token2, user;
+    var sails, token1, token2, user, resetToken;
 
     // Before running any tests, attempt to lift Sails
     before(function (done) {
@@ -98,14 +98,51 @@ describe('Sails-hook-jsonwebtoken test ::', function () {
 
     describe('token check if still valid', function () {
         it('same tokens are returned on succesive login ', function (done) {
-            if(token1 === token2) return done()
+            if (token1 === token2) return done()
             else return done("tokens do not match")
+        })
+    })
+
+    describe('reset password and try to login again', function () {
+        it('get reset token', function (done) {
+            JwtService.getPasswordResetToken(formData.email).then(token => {
+                resetToken = token
+                done()
+            }).catch(error => done(error))
+        })
+
+        it('update password', function (done) {
+            JwtService.resetPassword("familusi", resetToken).then(message => {
+                done()
+            }).catch(error => done(error))
+        })
+
+        it('login with old password', function (done) {
+            request(sails.hooks.http.app)
+                .post('/jwt/auth')
+                .send(formData)
+                .expect(401)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    return done();
+                });
+        })
+
+        it('login with new password', function (done) {
+            request(sails.hooks.http.app)
+                .post('/jwt/auth')
+                .send({ email: formData.email, password: "familusi" })
+                .expect(200)
+                .end(function (err, res) {
+                    if (err) return done(err);
+                    return done();
+                });
         })
     })
 
     describe('clean up', function () {
         it('delete account created', function (done) {
-            User.destroy({id: user.id}).then(data => done()).catch(error => done(error))
+            User.destroy({ id: user.id }).then(data => done()).catch(error => done(error))
         })
     })
 
