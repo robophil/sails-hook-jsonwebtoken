@@ -1,4 +1,5 @@
 var jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');
 
 /**
  * Returns a promise when a payload is passed. if successful, promise contains a new token
@@ -74,4 +75,63 @@ module.exports.createUser = function (body) {
       reject(err)
     });
   });
+}
+
+
+/**
+ * Returns a promise with a token used for resetting a password
+ */
+module.exports.getPasswordResetToken = function (email) {
+
+  return new Promise((resolve, reject) => {
+
+    User.findOne({ email: email }).then(user => {
+
+      JwtService.issueToken({ user_id: user.id, email: email, passwordReset: true }, user).then(token => {
+        //delete any existing token on that account
+        User.update({ email: email }, { token: '' }).then(data => { })
+        resolve(token)
+      }).catch(error => reject(error))
+
+    }).catch(error => reject(error))
+
+  })
+
+}
+
+
+module.exports.resetPassword = function (password, token) {
+
+  return new Promise((resolve, reject) => {
+    JwtService.verifyToken(token).then(payload => {
+
+      if (payload.passwordReset) {
+        // Hash password
+        bcrypt.hash(password, 10, function (err, hash) {
+          //if error hashing password
+          if (err) {
+
+            reject(err)
+
+          } else {
+
+            password = hash;
+            User.update({ id: payload.user_id, email: payload.email }, { password: password }).then(data => resolve(
+              { message: "password updated successfully for user " + payload.email }
+            ))
+            
+          }
+
+        })
+      } else {
+
+        reject({
+          message: "Invalid token passed, please use the right token generated for this"
+        })
+
+      }
+
+    }).catch(error => reject(error))
+  })
+
 }
