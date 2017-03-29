@@ -3,10 +3,6 @@ language: node_js
 # test on two node.js versions: 0.6 and 0.8
 node_js:
   - "6.9.1"
-compiler:
-  - clang
-  - gcc
 before_script:
-  - sudo apt-get install build-essential -y
-  - sudo npm install sails -g
+  - npm install -g sails
   - npm install
