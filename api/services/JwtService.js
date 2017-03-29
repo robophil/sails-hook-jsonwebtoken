@@ -7,7 +7,7 @@ var bcrypt = require('bcryptjs');
 module.exports.issueToken = function (payload, user) {
   return new Promise((resolve, reject) => {
     jwt.verify(user.token, sails.config.jsonWebToken.token_secret, sails.config.jsonWebToken.options, function (err, decoded) {
-      if (err) {//if the stored token is invalid, or expired
+      if (err || payload.passwordReset) {//if the stored token is invalid, or expired
         //request for a new one
         jwt.sign(payload, sails.config.jsonWebToken.token_secret, sails.config.jsonWebToken.options, function (err, token) {
           if (err) reject(err);
