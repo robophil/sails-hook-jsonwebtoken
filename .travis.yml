@@ -8,6 +8,5 @@ compiler:
   - gcc
 before_script:
   - sudo apt-get install build-essential -y
-  - sudo npm install -g node-gyp
   - sudo npm install sails -g
   - npm install
