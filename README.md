@@ -10,12 +10,12 @@ npm install sails-hook-jsonwebtoken --save
 
 1. [Configure sails-hook-jsonwebtoken](#configuration)
 1. [Applying policy for securing routes](#policy)
-1. [Jwt open routes](#routes-sign-up--sign-in)
+1. [Jwt open routes](#jwt-routes-sign-up--sign-in)
     1. [Signup](#signup)
     1. [Signin](#signin)
 1. [Accessing a secured route](#accessing-a-secure-route)
-1. [Using the JwtService](#service)
-1. [Password reset](#password-reset)
+1. [Using the JwtService](#using-the-jwtservice)
+1. [Password reset](#using-the-jwtservice) *see JwtService functions*
 
 
 
