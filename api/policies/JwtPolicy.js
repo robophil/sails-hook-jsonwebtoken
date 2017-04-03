@@ -33,17 +33,9 @@ module.exports = function (req, res, next) {
                 return res.json(400, { err: { status: "danger", message: "This account no longer exist or has been deleted" } });
             }
         }).catch(error => {
-            return res.json(401, {
-                err: {
-                    status: 'danger', message: 'could not validate this account', error: error
-                }
-            });
+            return res.negotiate(error)
         })
-    }).catch((err) => {
-        return res.json(401, {
-            err: {
-                status: 'danger', message: 'could not validate token', error: err
-            }
-        });
+    }).catch((error) => {
+        return res.negotiate(error)
     });
 };
