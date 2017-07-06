@@ -121,7 +121,7 @@ describe('Sails-hook-jsonwebtoken test ::', function () {
             request(sails.hooks.http.app)
                 .post('/jwt/auth')
                 .send(formData)
-                .expect(401)
+                .expect(400)
                 .end(function (err, res) {
                     if (err) return done(err);
                     return done();
